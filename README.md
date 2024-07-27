@@ -1,16 +1,16 @@
-# Dracula for [Foobar](https://foobar.com)
+# Dracula for [FreshIDE]([https://foobar.com](https://fresh.flatassembler.net/))
 
-> A dark theme for [Foobar](https://foobar.com).
+> A dark theme for [FreshIDE]([https://foobar.com](https://fresh.flatassembler.net/)).
 
 ![Screenshot](./screenshot.png)
 
 ## Install
 
-All instructions can be found at [draculatheme.com/foobar](https://draculatheme.com/foobar).
+All instructions can be found at [draculatheme.com/freshide](https://draculatheme.com/freshide).
 
 ## Team
 
-This theme is maintained by the following person(s) and a bunch of [awesome contributors](https://github.com/dracula/foobar/graphs/contributors).
+This theme is maintained by the following person(s) and a bunch of [awesome contributors](https://github.com/dracula/freshide/graphs/contributors).
 
 | [![Zeno Rocha](https://github.com/zenorocha.png?size=100)](https://github.com/zenorocha) | [![Lucas de França](https://github.com/luxonauta.png?size=100)](https://github.com/luxonauta) |
 | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
