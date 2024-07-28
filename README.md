@@ -1,6 +1,6 @@
-# Dracula for [FreshIDE](https://foobar.comhttps://fresh.flatassembler.net/)
+# Dracula for [FreshIDE](https://fresh.flatassembler.net/)
 
-> A dark theme for [FreshIDE](https://foobar.comhttps://fresh.flatassembler.net/).
+> A dark theme for [FreshIDE](https://fresh.flatassembler.net/).
 
 ![Screenshot](./screenshot.png)
 
