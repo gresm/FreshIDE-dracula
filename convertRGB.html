@@ -1,0 +1,197 @@
+<!--
+    This is a simple utility file for easier conversion between standard RGB hex, and a format understandable by the Fresh IDE.
+    This file is not used for the theme to function, but to ease with develpment.
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RGB converter</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+    <style>
+        .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .rebutton {
+            border-style: solid;
+            border-color: gray;
+            border-width: 1px;
+        }
+
+        .right-rounded {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .left-rounded {
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        input {
+            box-sizing: border-box;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex;">
+        <div style="display: inline-block;width: 200px;border-style: dashed;">
+            <div style="  display: block; background-color: #FFB86C;height: 200px;" id="colorDisplay"></div>
+            <div style="display: flex; height: 25px">
+                <input type="text" placeholder="RGB code" style="flex: 10; width: 100%;" id="rgbInput"
+                    class="rebutton left-rounded" value="#FFB86C">
+                <input type="button" value="add" style="flex: 1;" id="rgbSave"
+                    class="material-symbols-outlined rebutton right-rounded">
+            </div>
+        </div>
+        <div style="width: 200px;margin-left: 8px;">
+            <div style="display: inline-block;width: 100%;border-style: dashed;" id="colorSaved">
+                test
+            </div>
+        </div>
+    </div>
+    <script>
+        let inp = document.getElementById("rgbInput");
+        let btn = document.getElementById("rgbSave");
+        let dsp = document.getElementById("colorDisplay");
+        let svl = document.getElementById("colorSaved");
+        let savedColors = [];
+        let currentColor = [0, 0, 0];
+
+        function colorToStr(col) {
+            return `0x${col[2].toString(16)}${col[1].toString(16)}${col[0].toString(16)}`.toUpperCase();
+        }
+
+        function renderSaved() {
+            if (savedColors.length === 0) {
+                svl.style.display = "none";
+                return;
+            }
+            svl.style.display = "inline-block";
+            svl.replaceChildren();
+            savedColors.forEach((value, index) => {
+                let div = document.createElement("div");
+
+                div.style.display = "flex";
+                div.style.width = "100%";
+                div.style.height = "25px";
+
+                let col = document.createElement("div");
+                col.style.flex = 10;
+                col.style.backgroundColor = `rgb(${value[0]} ${value[1]} ${value[2]})`;
+                col.classList.add("left-rounded");
+                div.appendChild(col);
+
+                let rem = document.createElement("input");
+                rem.type = "button";
+                rem.style.flex = 1;
+                rem.style.borderRadius = "0px";
+                rem.classList.add("material-symbols-outlined", "rebutton");
+                rem.value = "delete";
+
+                rem.onclick = () => { savedColors.pop(index); renderSaved(); };
+
+                div.appendChild(rem);
+
+                let inp = document.createElement("input");
+                inp.type = "button";
+                inp.style.flex = 1;
+                inp.classList.add("material-symbols-outlined", "rebutton", "right-rounded");
+                inp.value = "content_copy";
+
+                inp.onclick = () => { navigator.clipboard.writeText(colorToStr(value)); }
+
+                div.appendChild(inp);
+
+                svl.appendChild(div);
+            })
+        }
+
+        function renderColor() {
+            dsp.style.backgroundColor = `rgb(${currentColor[0]} ${currentColor[1]} ${currentColor[2]})`;
+        }
+
+        /**
+         * @param {string} from 
+         * @returns {[bool, [int, int, int]]}
+         */
+        function convert(from) {
+            from = from.trim();
+            let well = true;
+            let flip = false;
+            let r = "";
+            let g = "";
+            let b = "";
+
+            if (from.endsWith("h")) {
+                flip = true;
+                if (from.length === 2 * 4 + 1) {
+                    r = from[2] + from[3];
+                    g = from[4] + from[5];
+                    b = from[6] + from[7];
+                } else if (from.length == 2 * 3 + 1) {
+                    r = from[0] + from[1];
+                    g = from[2] + from[3];
+                    b = from[4] + from[5];
+                } else {
+                    well = false;
+                }
+            } else if (from.startsWith("#")) {
+                if (from.length === 2 * 3 + 1) {
+                    r = from[1] + from[2];
+                    g = from[3] + from[4];
+                    b = from[5] + from[6];
+                } else {
+                    well = false;
+                }
+            } else if (from.startsWith("0x")) {
+                flip = true
+                if (from.length == 2 * 3 + 2) {
+                    r = from[2] + from[3];
+                    g = from[4] + from[5];
+                    b = from[6] + from[7];
+                } else {
+                    well = false;
+                }
+            } else if (from.length == 2 * 3) {
+                r = from[0] + from[1];
+                g = from[2] + from[3];
+                b = from[4] + from[5];
+            } else {
+                well = false;
+            }
+
+            let ret = [];
+            [r, g, b].forEach((value) => {
+                let num = parseInt(value, 16);
+                if (isNaN(num)) {
+                    well = false;
+                    ret.push(0);
+                } else {
+                    ret.push(num);
+                }
+            })
+            return [well, flip ? ret.reverse() : ret];
+        }
+
+        function reloadColor() {
+            let [valid, color] = convert(inp.value);
+            if (valid) {
+                currentColor = color;
+                renderColor();
+            }
+        }
+
+        inp.addEventListener("input", reloadColor);
+        btn.addEventListener("click", () => { savedColors.push(currentColor); renderSaved(); });
+
+        renderSaved();
+        reloadColor();
+    </script>
+</body>
+
+</html>
