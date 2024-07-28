@@ -30,4 +30,4 @@ This theme is maintained by the following person(s) and a bunch of [awesome cont
 
 [MIT License](./LICENSE)
 
-[Inconsolata font](https://fonts.google.com/specimen/Inconsolata) located at [``./Inconsolata.ttf``](./Inconsolata.ttf) is licensed under the [SIL Open Font License 1.1](./OFL.txt]).
+[Inconsolata font](https://fonts.google.com/specimen/Inconsolata) located at [``./Inconsolata.ttf``](./Inconsolata.ttf) is licensed under the [SIL Open Font License 1.1](./OFL.txt).
