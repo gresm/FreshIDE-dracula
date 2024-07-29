@@ -64,7 +64,7 @@
         let currentColor = [0, 0, 0];
 
         function colorToStr(col) {
-            return `0x${col[2].toString(16)}${col[1].toString(16)}${col[0].toString(16)}`.toUpperCase();
+            return "0x" + `${col[2].toString(16)}${col[1].toString(16)}${col[0].toString(16)}`.toUpperCase();
         }
 
         function renderSaved() {
@@ -104,7 +104,13 @@
                 inp.classList.add("material-symbols-outlined", "rebutton", "right-rounded");
                 inp.value = "content_copy";
 
-                inp.onclick = () => { navigator.clipboard.writeText(colorToStr(value)); }
+                inp.onclick = () => {
+                    if (navigator.clipboard !== undefined) {
+                        navigator.clipboard.writeText(colorToStr(value));
+                    } else {
+                        alert(`Current context doesn't support clipbaord operations.\nHere's the raw value instead: ${colorToStr(value)}`);
+                    }
+                }
 
                 div.appendChild(inp);
 
