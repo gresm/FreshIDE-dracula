@@ -26,10 +26,5 @@ Download using the [GitHub `.zip` download](https://github.com/dracula/freshide/
    ![image](https://github.com/user-attachments/assets/c30c7a94-e713-482d-8fbb-4c5cd610c158)
 
 
-#### Installing Dracula patch.
-
-Themes only work for code area, if you want to have the whole FreshIDE in the colors of Dracula, you need to apply patches and reassemble the IDE.
-1. TBD
-2. TODO
-3. FIXME
-4. Boom! It's working ✨
+#### More than syntax higlighting?
+Creating a drak Dracula theme for the whole program would require extensive paching of the source code, as currently FreshIDE doesn't use the new GUI library (``freshlib``), but rather win32 API calls, which doesn't support theming, but if someone succesfully does it, please let me know. Otherwise, you need to wait for Fresh IDE v3 to be released.
